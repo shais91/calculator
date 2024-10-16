@@ -3,18 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic calculator</title>
-    <script src="./javascript/calculator.js" defer></script>
+    <title>Basic Calculator</title>
     <link rel="stylesheet" href="./css/style.css" />
-    <img src="" alt="" />
+    <script src="./javascript/calculator.js" defer></script>
   </head>
   <body>
-    <h1>Basic calculator</h1>
-    <div class="button-container">
-      <button id="calculator" onclick="calculate()">
-        Click here to start calculator
-      </button>
+    <div id="display">99999999</div>
+    <div class="bigDiv">
+      <div class="numbers">
+        <button class="buttonGroup" id="AC">C</button>
+        <button class="buttonGroup" id="one">1</button>
+        <button id="two" class="buttonGroup">2</button>
+        <button id="three" class="buttonGroup">3</button>
+        <button id="four" class="buttonGroup">4</button>
+        <button id="five" class="buttonGroup">5</button>
+        <button id="six" class="buttonGroup">6</button>
+        <button id="seven" class="buttonGroup">7</button>
+        <button id="eight" class="buttonGroup">8</button>
+        <button id="nine" class="buttonGroup">9</button>
+        <button id="zero" class="buttonGroup">0</button>
+        <button id="decimal" class="buttonGroup">.</button>
+      </div>
+      <div class="operators">
+        <button id="add" class="buttonGroup">+</button>
+        <button id="subtract" class="buttonGroup">-</button>
+        <button id="multiply" class="buttonGroup">*</button>
+        <button id="divide" class="buttonGroup">/</button>
+        <button id="equal" class="buttonGroup">=</button>
+      </div>
     </div>
-    <p id="calculation">Result will show here</p>
   </body>
 </html>
