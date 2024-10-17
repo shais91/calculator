@@ -23,59 +23,86 @@ let numbdecimal = document.querySelector("#decimal");
 const CONTNUMBER = document.querySelector(".numbers");
 const CONTOPERATOR = document.querySelector(".operators");
 const CALCDISPLAY = document.querySelector("#display");
+let OPCLICK = false;
+const DISPNUM = [];
 
-numbC.addEventListener("click", () => {
-  CALCDISPLAY.innerHTML = "0";
+// Event listeners
+
+numbC.addEventListener("click", (e) => {
+  clear();
+  e.stopPropagation();
 });
+
+// numbers event listner
 CONTNUMBER.addEventListener("click", (event) => {
   const isButton = event.target.nodeName === "BUTTON";
   if (!isButton) {
     return;
   }
-  number1 = event.target.textContent;
-  console.log(number1);
+  if ((OPCLICK = true)) {
+    DISPNUM.push(event.target.textContent);
+    CALCDISPLAY.textContent = DISPNUM.join(" ");
+    number2 = DISPNUM.join("");
+    console.log(number2);
+    return;
+  }
+  DISPNUM.push(event.target.textContent);
+  CALCDISPLAY.textContent = DISPNUM.join(" ");
+  OPCLICK = false;
 });
 
+// operator event listener
 CONTOPERATOR.addEventListener("click", (event) => {
-  const isButton = (event.target.nodeName = "BUTTON");
+  const isButton = event.target.nodeName === "BUTTON";
   if (!isButton) {
     return;
   }
+
   operator = event.target.textContent;
-  console.log(operator);
+  number1 = DISPNUM.join("");
+  OPCLICK = true;
+  DISPNUM.splice(0);
 });
 
+// equal button event listener
+opEqual.addEventListener("click", (e) => {
+  calculate(number1, number2);
+  e.stopPropagation();
+});
 // Functions
 
 let add = (x, y) => x + y;
 let subtract = (x, y) => x - y;
 let multiply = (x, y) => x * y;
 let divide = (x, y) => x / y;
+let clear = () => {
+  CALCDISPLAY.textContent = "0";
+  OPCLICK = false;
+  DISPNUM.splice(0);
+  number1 = undefined;
+  number2 = undefined;
+};
 
-function calculate() {
-  let x = +prompt("Add the first number please");
-  let z = prompt(
-    "Add '+' for addition and '-' for subtraction '*' for multiplication and '/' for division"
-  );
-  let y = +prompt("Add the second number");
-
-  if (isNaN(x) || isNaN(y)) {
-    return "Please add number only";
+let calculate = (x, y) => {
+  if (number1 === undefined || number2 === undefined) {
+    return;
   }
-  let result;
-
-  if (z === "+") {
-    result = x + y;
-  } else if (z === "-") {
-    result = x - y;
-  } else if (z === "*") {
-    result = x * y;
-  } else if (z === "/") {
-    result = y !== 0 ? x / y : "cannot be divided by zero";
-  } else {
-    result = "invalid operation use + - * or / only";
+  let answer;
+  switch (operator) {
+    case "+":
+      answer = add(+x, +y);
+      break;
+    case "-":
+      answer = subtract(x, y);
+      break;
+    case "*":
+      answer = multiply(x, y);
+      break;
+    case "/":
+      answer = divide(x, y);
+      break;
   }
-  document.getElementById("calculation").innerHTML =
-    "Your answer is : " + result;
-  console.log(result);
-}
+  CALCDISPLAY.textContent = answer;
+  console.log(answer, number1, number2);
+  console.log(typeof number1);
+};
