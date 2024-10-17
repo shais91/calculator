@@ -1,9 +1,56 @@
-// problem :take a number from user add it to another number and return the Sum
-// pseudocode:get a prompt on site to add a number
-// make another prompt to add second number
-// declare variable x to first and variable y to second
-// add two variables
-// print result on site
+// Variables
+
+let number1;
+let number2;
+let operator;
+let opMultiply = document.querySelector("#multiply");
+let opDivide = document.querySelector("#divide");
+let opAdd = document.querySelector("#add");
+let opSubtract = document.querySelector("#subtract");
+let opEqual = document.querySelector("#equal");
+let numbC = document.querySelector("#AC");
+let numb1 = document.querySelector("#one");
+let numb2 = document.querySelector("#two");
+let numb3 = document.querySelector("#three");
+let numb4 = document.querySelector("#four");
+let numb5 = document.querySelector("#five");
+let numb6 = document.querySelector("#six");
+let numb7 = document.querySelector("#seven");
+let numb8 = document.querySelector("#eight");
+let numb9 = document.querySelector("#nine");
+let numb0 = document.querySelector("#zero");
+let numbdecimal = document.querySelector("#decimal");
+const CONTNUMBER = document.querySelector(".numbers");
+const CONTOPERATOR = document.querySelector(".operators");
+const CALCDISPLAY = document.querySelector("#display");
+
+numbC.addEventListener("click", () => {
+  CALCDISPLAY.innerHTML = "0";
+});
+CONTNUMBER.addEventListener("click", (event) => {
+  const isButton = event.target.nodeName === "BUTTON";
+  if (!isButton) {
+    return;
+  }
+  number1 = event.target.textContent;
+  console.log(number1);
+});
+
+CONTOPERATOR.addEventListener("click", (event) => {
+  const isButton = (event.target.nodeName = "BUTTON");
+  if (!isButton) {
+    return;
+  }
+  operator = event.target.textContent;
+  console.log(operator);
+});
+
+// Functions
+
+let add = (x, y) => x + y;
+let subtract = (x, y) => x - y;
+let multiply = (x, y) => x * y;
+let divide = (x, y) => x / y;
 
 function calculate() {
   let x = +prompt("Add the first number please");
@@ -32,32 +79,3 @@ function calculate() {
     "Your answer is : " + result;
   console.log(result);
 }
-
-// let add = function (one, two) {
-
-//   return one + two;
-// };
-// // Addition of variables
-
-// // subtraction of variables
-// let subtract = function (one, two) {
-//   if (isNaN(one) || isNaN(two)) {
-//     return "Please add number only";
-//     console.log("string added");
-//   }
-//   return one - two;
-// };
-
-// if (z === "+") {
-//   let addresult = add(x, y);
-//   document.write("<div class = 'addresult'>" + addresult + "</div>");
-//   console.log(addresult + " addition done");
-// } else if (z === "-") {
-//   const subtractresult = subtract(x, y);
-//   document.write("<div class='addresult'>" + subtractresult + "</div>");
-//   console.log(subtractresult + " subtraction done");
-// } else {
-//   document.write(
-//     "<div class ='addresult'>" + "Please enter '+' or '-' only" + "</div>"
-//   );
-//   console.log("illegal character added");
