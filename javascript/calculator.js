@@ -110,6 +110,9 @@ const calculate = (x, y) => {
   opDone = true;
   OPCLICK = false;
   classOpButton.style.backgroundColor = "#596fee";
-  console.log(answer, number1, number2);
-  console.log(typeof number1);
+  console.log(number1, number2, answer);
+  console.log(typeof number1, typeof number2);
 };
+// Page load event
+
+document.addEventListener("DOMContentLoaded", clear);
