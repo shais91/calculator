@@ -40,11 +40,10 @@ CONTNUMBER.addEventListener("click", event => {
   CALCDISPLAY.textContent = DISPNUM.join("");
 
   if (OPCLICK) {
-    number2 = DISPNUM.join("");
+    number2 = parseFloat(DISPNUM.join(""));
   } else {
-    number1 = DISPNUM.join("");
+    number1 = parseFloat(DISPNUM.join(""));
   }
-  OPCLICK = false;
   opDone = false;
 });
 
