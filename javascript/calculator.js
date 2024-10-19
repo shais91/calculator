@@ -1,10 +1,12 @@
+// Only + is clearing not the others
+
 // Variables
 
 let number1;
 let number2;
 let operator;
 let opMultiply = document.querySelector("#multiply");
-let classOpButton = document.querySelector(".opButton");
+let classOpButton = document.querySelectorAll(".opButton");
 let opDivide = document.querySelector("#divide");
 let opAdd = document.querySelector("#add");
 let opSubtract = document.querySelector("#subtract");
@@ -22,6 +24,7 @@ const DISPNUM = [];
 
 numbC.addEventListener("click", e => {
   clear();
+  // classOpButton.style.backgroundColor = "#596fee";
   e.stopPropagation();
 });
 
@@ -45,6 +48,7 @@ CONTNUMBER.addEventListener("click", event => {
     number1 = parseFloat(DISPNUM.join(""));
   }
   opDone = false;
+  // OPCLICK = false;
 });
 
 // OPERATOR EVENT listener
@@ -63,6 +67,40 @@ CONTOPERATOR.addEventListener("click", event => {
   DISPNUM.splice(0);
 });
 
+// KEYBOARD EVENT LISTENER
+document.addEventListener("keydown", e => {
+  const keyname = e.key;
+  if (CALCDISPLAY.textContent !== "0" && opDone) {
+    DISPNUM.splice(0);
+    CALCDISPLAY.textContent = "";
+  }
+  if (keyname === "Backspace") {
+    DISPNUM.pop();
+
+    CALCDISPLAY.textContent = DISPNUM.join("");
+    if (OPCLICK) {
+      number2 = parseFloat(DISPNUM.join(""));
+    } else {
+      number1 = parseFloat(DISPNUM.join(""));
+    }
+    return;
+  }
+  if (!/^\d$/.test(keyname) && keyname !== ".") {
+    return;
+  }
+  if (keyname === "." && DISPNUM.includes(".")) {
+    return;
+  }
+  DISPNUM.push(keyname);
+  CALCDISPLAY.textContent = DISPNUM.join("");
+  if (OPCLICK) {
+    number2 = parseFloat(DISPNUM.join(""));
+  } else {
+    number1 = parseFloat(DISPNUM.join(""));
+  }
+
+  opDone = false;
+});
 // EQUAL button event listener
 
 opEqual.addEventListener("click", e => {
@@ -79,6 +117,9 @@ let divide = (x, y) => x / y;
 let clear = () => {
   CALCDISPLAY.textContent = "0";
   OPCLICK = false;
+  classOpButton.forEach(button => {
+    button.style.backgroundColor = "#596fee";
+  });
   DISPNUM.splice(0);
   number1 = undefined;
   number2 = undefined;
@@ -109,10 +150,13 @@ const calculate = (x, y) => {
   CALCDISPLAY.textContent = answer;
   opDone = true;
   OPCLICK = false;
-  classOpButton.style.backgroundColor = "#596fee";
+  classOpButton.forEach(button => {
+    button.style.backgroundColor = "#596fee";
+  });
   console.log(number1, number2, answer);
   console.log(typeof number1, typeof number2);
 };
+
 // Page load event
 
 document.addEventListener("DOMContentLoaded", clear);
