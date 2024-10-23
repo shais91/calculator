@@ -43,11 +43,7 @@ CONTNUMBER.addEventListener("click", event => {
   CALCDISPLAY.textContent = DISPNUM.join("");
   if (OPCLICK) {
     number2 = parseFloat(DISPNUM.join(""));
-  }
-  // if (opDone && OPCLICK) {
-  //   number1 = parseFloat(calculatednumber);
-  // }
-  else {
+  } else {
     number1 = parseFloat(DISPNUM.join(""));
   }
 
@@ -67,7 +63,6 @@ document.addEventListener("keydown", e => {
   }
   if (keyname === "Backspace") {
     DISPNUM.pop();
-
     CALCDISPLAY.textContent = DISPNUM.join("");
     if (OPCLICK) {
       number2 = parseFloat(DISPNUM.join(""));
@@ -84,6 +79,7 @@ document.addEventListener("keydown", e => {
   }
   DISPNUM.push(keyname);
   CALCDISPLAY.textContent = DISPNUM.join("");
+
   if (OPCLICK) {
     number2 = parseFloat(DISPNUM.join(""));
   } else {
@@ -119,6 +115,14 @@ CONTOPERATOR.addEventListener("click", event => {
 opEqual.addEventListener("click", e => {
   calculate(number1, number2);
   e.stopPropagation();
+});
+//Enter key
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    calculate(number1, number2);
+    return;
+  }
 });
 
 // Functions
