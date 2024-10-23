@@ -1,5 +1,3 @@
-// Only + is clearing not the others
-
 // Variables
 
 let number1;
@@ -18,19 +16,20 @@ const CONTOPERATOR = document.querySelector(".operators");
 const CALCDISPLAY = document.querySelector("#display");
 let OPCLICK = false;
 let opDone = false;
+let calculatednumber;
 const DISPNUM = [];
 
 // EVENT LISTENERS
 
 numbC.addEventListener("click", e => {
   clear();
-  // classOpButton.style.backgroundColor = "#596fee";
   e.stopPropagation();
 });
 
 // NUMBER BUTTON EVENT LISTENER
 
 CONTNUMBER.addEventListener("click", event => {
+  let inputnumber = event.target.textContent;
   const isButton = event.target.nodeName === "BUTTON";
   if (!isButton) {
     return;
@@ -39,32 +38,20 @@ CONTNUMBER.addEventListener("click", event => {
     DISPNUM.splice(0);
     CALCDISPLAY.textContent = "";
   }
-  DISPNUM.push(event.target.textContent);
-  CALCDISPLAY.textContent = DISPNUM.join("");
 
+  DISPNUM.push(inputnumber);
+  CALCDISPLAY.textContent = DISPNUM.join("");
   if (OPCLICK) {
     number2 = parseFloat(DISPNUM.join(""));
-  } else {
+  }
+  // if (opDone && OPCLICK) {
+  //   number1 = parseFloat(calculatednumber);
+  // }
+  else {
     number1 = parseFloat(DISPNUM.join(""));
   }
+
   opDone = false;
-  // OPCLICK = false;
-});
-
-// OPERATOR EVENT listener
-
-CONTOPERATOR.addEventListener("click", event => {
-  const isButton = event.target.nodeName === "BUTTON";
-  if (!isButton) {
-    return;
-  } else if (OPCLICK === false && opDone) {
-    classOpButton.style.backgroundColor = "#596fee";
-  }
-  let button = event.target;
-  button.style.backgroundColor = "#ec5353";
-  operator = event.target.textContent;
-  OPCLICK = true;
-  DISPNUM.splice(0);
 });
 
 // KEYBOARD EVENT LISTENER
@@ -73,6 +60,10 @@ document.addEventListener("keydown", e => {
   if (CALCDISPLAY.textContent !== "0" && opDone) {
     DISPNUM.splice(0);
     CALCDISPLAY.textContent = "";
+  }
+  if (keyname === "Escape") {
+    clear();
+    return;
   }
   if (keyname === "Backspace") {
     DISPNUM.pop();
@@ -101,6 +92,28 @@ document.addEventListener("keydown", e => {
 
   opDone = false;
 });
+
+// OPERATOR EVENT listener
+
+CONTOPERATOR.addEventListener("click", event => {
+  let button = event.target;
+  const isButton = event.target.nodeName === "BUTTON";
+  if (!isButton) {
+    return;
+  }
+  // if (OPCLICK === false && opDone) {
+  //   classOpButton.style.backgroundColor = "#596fee";
+  // }
+
+  button.style.backgroundColor = "#ec5353";
+  operator = event.target.textContent;
+  OPCLICK = true;
+  if (opDone) {
+    number1 = parseFloat(calculatednumber);
+  }
+  DISPNUM.splice(0);
+});
+
 // EQUAL button event listener
 
 opEqual.addEventListener("click", e => {
@@ -146,15 +159,17 @@ const calculate = (x, y) => {
       } else answer = divide(+x, +y);
       break;
   }
+  // calculatednumber.splice(0);
 
   CALCDISPLAY.textContent = answer;
+  calculatednumber = answer;
   opDone = true;
   OPCLICK = false;
   classOpButton.forEach(button => {
     button.style.backgroundColor = "#596fee";
   });
   console.log(number1, number2, answer);
-  console.log(typeof number1, typeof number2);
+  console.log(calculatednumber);
 };
 
 // Page load event
