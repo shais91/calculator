@@ -97,9 +97,6 @@ CONTOPERATOR.addEventListener("click", event => {
   if (!isButton) {
     return;
   }
-  // if (OPCLICK === false && opDone) {
-  //   classOpButton.style.backgroundColor = "#596fee";
-  // }
 
   button.style.backgroundColor = "#ec5353";
   operator = event.target.textContent;
@@ -110,12 +107,27 @@ CONTOPERATOR.addEventListener("click", event => {
   DISPNUM.splice(0);
 });
 
+document.addEventListener("keydown", e => {
+  click = e.key;
+  if (click === "+" || click === "-" || click === "*" || click === "/") {
+    e.preventDefault();
+    operator = e.key;
+    OPCLICK = true;
+    if (opDone) {
+      number1 = parseFloat(calculatednumber);
+    }
+    DISPNUM.splice(0);
+    console.log(e.key);
+  }
+});
+
 // EQUAL button event listener
 
 opEqual.addEventListener("click", e => {
   calculate(number1, number2);
   e.stopPropagation();
 });
+
 //Enter key
 document.addEventListener("keydown", e => {
   if (e.key === "Enter") {
